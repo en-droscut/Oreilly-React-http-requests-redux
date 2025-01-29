@@ -1,11 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { progressBarActions } from "../store/progressBar-slice.js";
 
 export default function ProgressBar({ timer }) {
-  const [remainingTime, setRemainingTime] = useState(timer);
+  const dispatch = useDispatch();
+
+  // const [remainingTime, setRemainingTime] = useState(timer);
+  const remainingTime = useSelector((state) => state.progressBar.remainingTime);
+
+  const setRemainingTime = (time) => {
+    dispatch(progressBarActions.setRemainingTime(time));
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setRemainingTime((prevTime) => prevTime - 10);
+      if (remainingTime > 0) {
+        setRemainingTime(remainingTime - 10);
+      }
     }, 10);
 
     return () => {
@@ -13,5 +24,5 @@ export default function ProgressBar({ timer }) {
     };
   }, []);
 
-  return <progress value={remainingTime} max={timer} />;
+  return <progress max={timer} />;
 }
