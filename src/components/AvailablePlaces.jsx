@@ -3,11 +3,32 @@ import Places from "./Places.jsx";
 import Error from "./Error.jsx";
 import { sortPlacesByDistance } from "../loc.js";
 import { fetchAvailablePlaces } from "../http.js";
+import { useDispatch, useSelector } from "react-redux";
+import { placesActions } from "../store/places-slice.js";
 
 export default function AvailablePlaces({ onSelectPlace }) {
-  const [availablePlaces, setAvailablePlaces] = useState([]);
-  const [isFetching, setIsFetching] = useState();
-  const [error, setError] = useState();
+  const dispatch = useDispatch();
+
+  // const [availablePlaces, setAvailablePlaces] = useState([]);
+  const availablePlaces = useSelector((state) => state.places.availablePlaces);
+
+  const setAvailablePlaces = (places) => {
+    dispatch(placesActions.setAvailablePlaces(places));
+  };
+
+  // const [isFetching, setIsFetching] = useState();
+  const isFetching = useSelector((state) => state.places.isFetching);
+
+  const setIsFetching = (bool) => {
+    dispatch(placesActions.setIsFetching(bool));
+  };
+
+  // const [error, setError] = useState();
+  const error = useSelector((state) => state.places.error);
+
+  const setError = (message) => {
+    dispatch(placesActions.setError(message));
+  };
 
   useEffect(() => {
     async function fetchPlaces() {
@@ -27,10 +48,9 @@ export default function AvailablePlaces({ onSelectPlace }) {
           setIsFetching(false);
         });
       } catch (error) {
-        setError({
-          message:
-            error.message || "Could not fetch places, please try again later.",
-        });
+        setError(
+          error.message || "Could not fetch places, please try again later."
+        );
       }
     }
 
