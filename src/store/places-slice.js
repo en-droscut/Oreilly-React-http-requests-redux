@@ -2,8 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   error: '',
+  appError: '',
   isFetching: false,
   availablePlaces: '',
+  userPlaces: [],
+  errorUpdatingPlaces: '',
+  isFetching: false,
+  modalIsOpen: false,
 }
 
 const placesSlice = createSlice({
@@ -13,11 +18,26 @@ const placesSlice = createSlice({
     setError(state, action) {
       state.error = action.payload;
     },
+    setAppError(state, action) {
+      state.appError = action.payload;
+    },
     setIsFetching(state, action) {
       state.isFetching = action.payload;
     },
     setAvailablePlaces(state, action) {
       state.availablePlaces = action.payload;
+    },
+    setUserPlaces(state, action) {
+      state.userPlaces = action.payload;
+    },
+    setErorrUpdatingPlaces(state, action) {
+      state.errorUpdatingPlaces = action.payload;
+    },
+    setIsFetching(state, action) {
+      state.isFetching = action.payload;
+    },
+    setModalIsOpen(state, action) {
+      state.modalIsOpen = action.payload;
     }
   }
 });
