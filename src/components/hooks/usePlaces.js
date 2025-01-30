@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserPlaces, updateUserPlaces } from "../../http.js";
+import { fetchUserPlaces, updateUserPlaces } from "../../api/http.js";
 import { placesActions } from "../../store/slices/places-slice";
 
 export function usePlaces() {
