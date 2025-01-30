@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import placesReducer from "./places-slice.js";
-import progressBarReducer from "./progressBar-slice.js";
+import placesReducer from "./slices/places-slice.js";
+import progressBarReducer from "./slices/progressBar-slice.js";
 
 const store = configureStore({
   reducer: {

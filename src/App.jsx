@@ -1,128 +1,30 @@
-// import { useState } from "react";
-import { useRef, useCallback, useEffect } from "react";
-import Places from "./components/Places.jsx";
-import Modal from "./components/Modal.jsx";
-import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
+import { usePlaces } from "./components/hooks/usePlaces.js";
 import logoImg from "./assets/logo.png";
-import AvailablePlaces from "./components/AvailablePlaces.jsx";
-import { fetchUserPlaces, updateUserPlaces } from "./http.js";
-import { useDispatch, useSelector } from "react-redux";
-import { placesActions } from "./store/places-slice.js";
+import Places from "./components/Places";
+import Modal from "./components/Modal";
+import DeleteConfirmation from "./components/DeleteConfirmation";
+import AvailablePlaces from "./components/AvailablePlaces";
 
 function App() {
-  const selectedPlace = useRef();
-  const dispatch = useDispatch();
-
-  // const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
-  const errorUpdatingPlaces = useSelector(
-    (state) => state.places.errorUpdatingPlaces
-  );
-
-  const setErrorUpdatingPlaces = (error) => {
-    dispatch(placesActions.setErorrUpdatingPlaces(error));
-  };
-
-  // const [userPlaces, setUserPlaces] = useState([]);
-  const userPlaces = useSelector((state) => state.places.userPlaces);
-
-  const setUserPlaces = (places) => {
-    dispatch(placesActions.setUserPlaces(places));
-  };
-
-  // const [isFetching, setIsFetching] = useState();
-  const isFetching = useSelector((state) => state.places.isFetching);
-
-  const setIsFetching = (bool) => {
-    dispatch(placesActions.setIsFetching(bool));
-  };
-
-  // const [error, setError] = useState();
-  const error = useSelector((state) => state.places.appError);
-
-  const setError = (err) => {
-    dispatch(placesActions.setAppError(err));
-  };
-
-  // const [modalIsOpen, setModalIsOpen] = useState(false);
-  const modalIsOpen = useSelector((state) => state.places.modalIsOpen);
-
-  const setModalIsOpen = (bool) => {
-    dispatch(placesActions.setModalIsOpen(bool));
-  };
-
-  useEffect(() => {
-    async function fetchPlaces() {
-      setIsFetching(true);
-
-      try {
-        const places = await fetchUserPlaces();
-        setUserPlaces(places);
-      } catch (error) {
-        setError({ message: error.message || "Failed to fetch user places." });
-      }
-
-      setIsFetching(false);
-    }
-
-    fetchPlaces();
-  }, []);
-
-  function handleStartRemovePlace(place) {
-    setModalIsOpen(true);
-    selectedPlace.current = place;
-  }
-
-  function handleStopRemovePlace() {
-    setModalIsOpen(false);
-  }
-
-  async function handleSelectPlace(selectedPlace) {
-    const updatedPlaces = [...userPlaces];
-    if (!updatedPlaces.some((place) => place.id === selectedPlace.id)) {
-      updatedPlaces.unshift(selectedPlace);
-    }
-
-    setUserPlaces(updatedPlaces);
-
-    try {
-      await updateUserPlaces(updatedPlaces);
-    } catch (error) {
-      setUserPlaces(userPlaces);
-      setErrorUpdatingPlaces({
-        message: error.message || "Failed to update places",
-      });
-    }
-  }
-
-  const handleRemovePlace = useCallback(async () => {
-    const updatedPlaces = userPlaces.filter(
-      (place) => place.id !== selectedPlace.current.id
-    );
-
-    setUserPlaces(updatedPlaces);
-
-    try {
-      await updateUserPlaces(updatedPlaces);
-    } catch (error) {
-      setUserPlaces(userPlaces);
-      setErrorUpdatingPlaces({
-        message: error.message || "Failed to delete place.",
-      });
-    }
-
-    setModalIsOpen(false);
-  }, [userPlaces]);
-
-  function handleError() {
-    setErrorUpdatingPlaces(null);
-  }
+  const {
+    userPlaces,
+    errorUpdatingPlaces,
+    isFetching,
+    error,
+    modalIsOpen,
+    handleStartRemovePlace,
+    handleStopRemovePlace,
+    handleSelectPlace,
+    handleRemovePlace,
+    handleError,
+  } = usePlaces();
 
   return (
     <>
       <Modal open={errorUpdatingPlaces} onClose={handleError}>
         {errorUpdatingPlaces && (
           <Error
-            title="An error occured"
+            title="An error occurred"
             message={errorUpdatingPlaces.message}
             onConfirm={handleError}
           />

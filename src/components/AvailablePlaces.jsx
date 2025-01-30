@@ -1,30 +1,26 @@
-// import { useState } from "react";
 import { useEffect } from "react";
 import Places from "./Places.jsx";
 import Error from "./Error.jsx";
 import { sortPlacesByDistance } from "../loc.js";
 import { fetchAvailablePlaces } from "../http.js";
 import { useDispatch, useSelector } from "react-redux";
-import { placesActions } from "../store/places-slice.js";
+import { placesActions } from "../store/slices/places-slice.js";
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const dispatch = useDispatch();
 
-  // const [availablePlaces, setAvailablePlaces] = useState([]);
   const availablePlaces = useSelector((state) => state.places.availablePlaces);
 
   const setAvailablePlaces = (places) => {
     dispatch(placesActions.setAvailablePlaces(places));
   };
 
-  // const [isFetching, setIsFetching] = useState();
   const isFetching = useSelector((state) => state.places.isFetching);
 
   const setIsFetching = (bool) => {
     dispatch(placesActions.setIsFetching(bool));
   };
 
-  // const [error, setError] = useState();
   const error = useSelector((state) => state.places.error);
 
   const setError = (message) => {

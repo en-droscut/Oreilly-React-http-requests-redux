@@ -7,7 +7,6 @@ const initialState = {
   availablePlaces: '',
   userPlaces: [],
   errorUpdatingPlaces: '',
-  isFetching: false,
   modalIsOpen: false,
 }
 
@@ -32,9 +31,6 @@ const placesSlice = createSlice({
     },
     setErorrUpdatingPlaces(state, action) {
       state.errorUpdatingPlaces = action.payload;
-    },
-    setIsFetching(state, action) {
-      state.isFetching = action.payload;
     },
     setModalIsOpen(state, action) {
       state.modalIsOpen = action.payload;
