@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { progressBarActions } from "../../store/slices/progressBar-slice.js";
+import { progressBarActions } from "../store/slices/progressBar-slice.js";
 
 export function useProgressBar() {
   const dispatch = useDispatch();

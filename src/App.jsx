@@ -1,4 +1,4 @@
-import { usePlaces } from "./components/hooks/usePlaces.js";
+import { usePlaces } from "./hooks/usePlaces.js";
 import logoImg from "./assets/logo.png";
 import Places from "./components/Places";
 import Modal from "./components/Modal";

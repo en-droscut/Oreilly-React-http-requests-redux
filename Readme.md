@@ -1,4 +1,4 @@
 Starting project
 
-/: npm run dev
+/: npm run dev  
 /backend: node app.js

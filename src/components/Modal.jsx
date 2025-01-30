@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { useModal } from "./hooks/useModal";
+import { useModal } from "../hooks/useModal";
 
 function Modal({ open, children, onClose }) {
   const { dialog } = useModal(open);

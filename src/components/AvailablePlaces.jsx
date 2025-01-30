@@ -1,4 +1,4 @@
-import { useAvailablePlaces } from "./hooks/useAvailablePlaces.js";
+import { useAvailablePlaces } from "../hooks/useAvailablePlaces.js";
 import Places from "./Places.jsx";
 import Error from "./Error.jsx";
 

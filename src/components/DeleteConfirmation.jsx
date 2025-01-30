@@ -1,5 +1,5 @@
 import ProgressBar from "./ProgressBar.jsx";
-import { useDeleteConfirmation } from "./hooks/useDeleteConfirmation.js";
+import { useDeleteConfirmation } from "../hooks/useDeleteConfirmation.js";
 
 const TIMER = 3000;
 

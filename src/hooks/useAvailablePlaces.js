@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { placesActions } from "../../store/slices/places-slice.js";
-import { fetchAvailablePlaces } from "../../api/http.js";
-import { sortPlacesByDistance } from "../../api/loc.js";
+import { placesActions } from "../store/slices/places-slice.js";
+import { fetchAvailablePlaces } from "../api/http.js";
+import { sortPlacesByDistance } from "../api/loc.js";
 import { useEffect } from "react";
 
 export function useAvailablePlaces() {

@@ -1,4 +1,4 @@
-import { useProgressBar } from "./hooks/useProgressBar.js";
+import { useProgressBar } from "../hooks/useProgressBar.js";
 
 export default function ProgressBar({ timer }) {
   useProgressBar();
